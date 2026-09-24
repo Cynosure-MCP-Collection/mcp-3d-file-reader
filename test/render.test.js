@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { mkdtemp, writeFile, rm, symlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -23,7 +23,9 @@ test('MCP tool returns a labeled PNG with OBJ texture and reports tool errors', 
   await writeFile(join(dir, 'red.png'), PNG.sync.write(texture));
   await writeFile(join(dir, 'model.mtl'), 'newmtl red\nKd 1 1 1\nmap_Kd red.png\n');
   await writeFile(join(dir, 'model.obj'), 'mtllib model.mtl\nv -1 -1 0\nv 1 -1 0\nv 1 1 0\nv -1 1 0\nvt 0 0\nvt 1 0\nvt 1 1\nvt 0 1\nusemtl red\nf 1/1 2/2 3/3 4/4\n');
-  const transport = new StdioClientTransport({ command: process.execPath, args: [fileURLToPath(new URL('../src/server.js', import.meta.url))] });
+  const executable = join(dir, 'mcp-3d-file-reader');
+  await symlink(fileURLToPath(new URL('../src/server.js', import.meta.url)), executable);
+  const transport = new StdioClientTransport({ command: executable });
   const client = new Client({ name: 'render-test', version: '1.0.0' });
   try {
     await client.connect(transport);
