@@ -2,13 +2,17 @@
   "name": "mcp-3d-file-reader",
   "version": "0.1.0",
   "type": "module",
-  "files": ["src", "README.md"],
+  "files": [
+    "src",
+    "README.md"
+  ],
   "bin": {
     "mcp-3d-file-reader": "./src/server.js"
   },
   "scripts": {
     "start": "node src/server.js",
-    "test": "node --test"
+    "test": "node --test",
+    "version": "node scripts/sync-version.mjs && git add server.json"
   },
   "engines": {
     "node": ">=20"
