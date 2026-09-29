@@ -14,24 +14,35 @@ Keep MTL files and external textures alongside the model or in subfolders of its
 
 ## Install
 
-Requires Node.js 20 or newer. Installing the package downloads Playwright's Chromium automatically. No build command is needed.
+Requires Node.js 20 or newer. After publication to npm, run the MCP server with:
+
+```bash
+npx -y @cynosure/3d-file-reader
+```
+
+The first installation downloads Playwright Chromium. If you manage Chrome separately, set `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1` during installation and `CHROME_PATH` to the browser executable when running the server. The server also checks common Linux Chrome paths.
+
+To run this checkout before publication:
 
 ```bash
 npm install
+npm start
 ```
 
-If you manage Chrome separately, you can skip the download with `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install` and set `CHROME_PATH` to its executable path. The server also checks common Linux Chrome paths.
-
-The package is ready for npm, but it has not been published. **`npx mcp-3d-file-reader` will work only after publication to npm.** For this checkout, run `npm start` after installation, or configure the MCP client below. When published, `npx -y mcp-3d-file-reader` can be used as the MCP client's stdio command; the first run installs the package and browser.
-
-After publication, an MCP client can use:
+For an MCP client, use:
 
 ```json
 {
-  "command": "npx",
-  "args": ["-y", "mcp-3d-file-reader"]
+  "mcpServers": {
+    "3d-file-reader": {
+      "command": "npx",
+      "args": ["-y", "@cynosure/3d-file-reader"]
+    }
+  }
 }
 ```
+
+The package also includes `server.json` metadata for a future MCP Registry submission. Its `io.github.cynosure/3d-file-reader` name assumes the publishing GitHub identity is `cynosure`; update `mcpName` and the manifest before Registry submission if that differs.
 
 ## Connect an MCP client
 

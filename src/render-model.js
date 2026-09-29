@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const sourceDir = dirname(fileURLToPath(import.meta.url));
-const threeDir = resolve(sourceDir, '../node_modules/three');
+const threeDir = resolve(dirname(fileURLToPath(import.meta.resolve('three'))), '..');
 const formats = new Set(['.stl', '.obj', '.fbx']);
 const contentTypes = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',

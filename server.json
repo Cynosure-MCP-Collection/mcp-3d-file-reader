@@ -1,0 +1,27 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.cynosure/3d-file-reader",
+  "title": "3D File Reader",
+  "description": "Local MCP server that renders STL, OBJ, and FBX models as labeled front and side images.",
+  "version": "0.1.0",
+  "icons": [
+    {
+      "src": "https://unpkg.com/@cynosure/3d-file-reader@0.1.0/icon.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "1254x1254"
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@cynosure/3d-file-reader",
+      "version": "0.1.0",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

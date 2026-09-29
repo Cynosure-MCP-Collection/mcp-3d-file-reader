@@ -12,6 +12,11 @@ const npmPackageName = packageJson.name;
 const expectedIconUrl = `https://unpkg.com/${npmPackageName}@${version}/icon.png`;
 const errors = [];
 
+if (serverJson.name !== packageJson.mcpName) {
+  errors.push(`server.json name is ${serverJson.name}; expected ${packageJson.mcpName}`);
+  serverJson.name = packageJson.mcpName;
+}
+
 if (serverJson.version !== version) {
   errors.push(`server.json version is ${serverJson.version}; expected ${version}`);
   serverJson.version = version;

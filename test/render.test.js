@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, writeFile, rm, symlink } from 'node:fs/promises';
+import { mkdtemp, writeFile, rm, symlink, readFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -8,6 +8,8 @@ import { PNG } from 'pngjs';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { renderModel } from '../src/render-model.js';
+
+const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
 
 function pixel(png, x, y) {
   const index = (y * png.width + x) * 4;
@@ -29,7 +31,19 @@ test('MCP tool returns a labeled PNG with OBJ texture and reports tool errors', 
   const client = new Client({ name: 'render-test', version: '1.0.0' });
   try {
     await client.connect(transport);
+    const serverInfo = client.getServerVersion();
+    assert.equal(serverInfo.name, packageJson.mcpName);
+    assert.equal(serverInfo.title, '3D File Reader');
+    assert.equal(serverInfo.version, packageJson.version);
+    assert.match(serverInfo.description, /STL, OBJ, and FBX/);
+    assert.equal(serverInfo.icons[0].src, `https://unpkg.com/${packageJson.name}@${packageJson.version}/icon.png`);
+    assert.match(client.getInstructions(), /render_3d_model/);
     const listed = await client.listTools();
+    const renderTool = listed.tools.find(tool => tool.name === 'render_3d_model');
+    assert.equal(renderTool.title, 'Render 3D model');
+    assert.deepEqual(renderTool.annotations, {
+      readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false
+    });
     assert.ok(listed.tools.some(tool => tool.name === 'render_3d_model'));
     const result = await client.callTool({ name: 'render_3d_model', arguments: { file_path: join(dir, 'model.obj') } });
     assert.equal(result.isError, undefined);

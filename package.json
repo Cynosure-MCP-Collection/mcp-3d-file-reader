@@ -1,17 +1,19 @@
 {
-  "name": "mcp-3d-file-reader",
+  "name": "@cynosure/3d-file-reader",
   "version": "0.1.0",
   "type": "module",
   "files": [
     "src",
-    "README.md"
+    "README.md",
+    "icon.png",
+    "server.json"
   ],
   "bin": {
-    "mcp-3d-file-reader": "./src/server.js"
+    "3d-file-reader": "./src/server.js"
   },
   "scripts": {
     "start": "node src/server.js",
-    "test": "node --test",
+    "test": "node --test && node scripts/sync-version.mjs --check",
     "version": "node scripts/sync-version.mjs && git add server.json"
   },
   "engines": {
@@ -26,5 +28,19 @@
   },
   "devDependencies": {
     "pngjs": "^7.0.0"
+  },
+  "description": "Local MCP server that renders STL, OBJ, and FBX models as labeled front and side images.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "3d",
+    "stl",
+    "obj",
+    "fbx",
+    "threejs"
+  ],
+  "mcpName": "io.github.cynosure/3d-file-reader",
+  "publishConfig": {
+    "access": "public"
   }
 }
