@@ -1,6 +1,6 @@
 {
   "name": "@cynosure/3d-file-reader",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "files": [
     "src",
@@ -14,7 +14,8 @@
   "scripts": {
     "start": "node src/server.js",
     "test": "node --test && node scripts/sync-version.mjs --check",
-    "version": "node scripts/sync-version.mjs && git add server.json"
+    "version": "node scripts/sync-version.mjs && git add server.json",
+    "release:check": "node scripts/sync-version.mjs --check"
   },
   "engines": {
     "node": ">=20"
@@ -42,5 +43,9 @@
   "mcpName": "io.github.cynosure/3d-file-reader",
   "publishConfig": {
     "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cynosure-MCP-Collection/mcp-3d-file-reader.git"
   }
 }
