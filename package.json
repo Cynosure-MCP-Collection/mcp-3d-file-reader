@@ -1,6 +1,6 @@
 {
-  "name": "@cynosure/3d-file-reader",
-  "version": "0.1.2",
+  "name": "@cynosure-mcp/3d-file-reader",
+  "version": "0.1.3",
   "type": "module",
   "files": [
     "src",
@@ -9,7 +9,7 @@
     "server.json"
   ],
   "bin": {
-    "3d-file-reader": "./src/server.js"
+    "3d-file-reader": "src/server.js"
   },
   "scripts": {
     "start": "node src/server.js",

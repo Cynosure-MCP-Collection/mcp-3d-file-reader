@@ -17,7 +17,7 @@ Keep MTL files and external textures alongside the model or in subfolders of its
 Requires Node.js 20 or newer. After publication to npm, run the MCP server with:
 
 ```bash
-npx -y @cynosure/3d-file-reader
+npx -y @cynosure-mcp/3d-file-reader
 ```
 
 The first installation downloads Playwright Chromium. If you manage Chrome separately, set `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1` during installation and `CHROME_PATH` to the browser executable when running the server. The server also checks common Linux Chrome paths.
@@ -36,7 +36,7 @@ For an MCP client, use:
   "mcpServers": {
     "3d-file-reader": {
       "command": "npx",
-      "args": ["-y", "@cynosure/3d-file-reader"]
+      "args": ["-y", "@cynosure-mcp/3d-file-reader"]
     }
   }
 }
